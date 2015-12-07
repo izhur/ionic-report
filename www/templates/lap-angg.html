@@ -1,0 +1,38 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Anggaran">
+  <ion-content>
+    <div class="padding">
+      <b>KOTA BENGKULU</b><br/>
+      RINCIAN APBD MENURUT URUSAN PEMERINTAHAN DAERAH, ORGANISASI,
+      PENDAPATAN, BELANJA DAN PEMBIAYAAN<br/>
+      <b>TAHUN ANGARAN {{settings.tahun}}</b>
+    </div>
+    <ion-list>
+        <div ng-repeat="akun in accounts">
+          <ion-item class="item-stable no-padding"
+                    ng-click="toggleGroup(akun)"
+                    ng-class="{active: isGroupShown(akun)}">
+            <div class="row">
+              <i class="icon" style="width: 10px" ng-class="isGroupShown(akun) ? 'ion-android-arrow-dropdown' : 'ion-android-arrow-dropright'"></i>
+              <span class="caption0 no-padding">{{akun.kode}}</span>
+              <span style="width: 10px"></span>
+              <span class="col caption0 no-padding">{{akun.nama}}</span>
+            </div>
+          </ion-item>
+          <ion-item class="" ng-show="isGroupShown(akun)">
+            <div class="row" ng-repeat="item in details.items">
+              <span style="width: {{item[5]}}px;"></span>
+              <span class="col caption2 no-padding" ng-class="item[4]=='h'?'bold':''">{{item[1]}}</span>
+              <span class="col caption2 no-padding text-right" ng-class="item[4]=='h'?'bold':''">{{item[2]|rupiah}}</span>
+            </div>
+            <div ng-if="item[4]==h">&nbsp;</div>
+          </ion-item>
+        </div>
+      </ion-list>
+  </ion-content>
+</ion-view>

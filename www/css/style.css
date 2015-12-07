@@ -1,0 +1,58 @@
+/* Empty. Add your own CSS if you like */
+.no-padding {
+	padding: 0;
+}
+.title1 {
+	font-size: 14px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 60px;
+}
+.caption0 {
+	font-size: 16px;	
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.caption1 {
+	font-size: 14px;	
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.caption2 {
+	font-size: 12px;
+	text-overflow: ellipsis;
+	overflow: hidden;	
+}
+.right-pad-5 {
+	padding-right: 5px; 
+}
+.right-pad-10 {
+	padding-right: 10px; 
+}
+.logo {
+	position: relative;
+	padding: 10px 0;
+}
+.logo img{
+	position: absolute;
+	width: 100px;
+	left: 10px;
+}
+.logo h2 {
+	padding-top: 20px;
+	right: 0;
+	font-weight: bolder;
+	margin: 0;
+}
+.logo .dashboard-stat {
+	margin: 0 5px 20px;
+}
+.width10 {
+	width: 10px;
+}
+.width20 {
+	width: 20px;
+}
+.width30 {
+	width: 30px;
+}

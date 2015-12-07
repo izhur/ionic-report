@@ -1,0 +1,79 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="LRA">
+  <ion-content>
+    <div class="padding">
+      <b>KOTA BENGKULU</b><br/>
+      REALISASI ANGGARAN MENURUT URUSAN PEMERINTAHAN DAERAH, ORGANISASI,
+      PENDAPATAN, BELANJA DAN PEMBIAYAAN<br/>
+      <b>TAHUN ANGARAN {{settings.tahun}}</b>
+    </div>
+    <ion-list>
+        <div ng-repeat="akun in accounts">
+          <ion-item class="item-stable no-padding"
+                    ng-click="toggleGroup(akun)"
+                    ng-class="{active: isGroupShown(akun)}">
+            <div class="row">
+              <i class="icon" style="width: 10px" ng-class="isGroupShown(akun) ? 'ion-android-arrow-dropdown' : 'ion-android-arrow-dropright'"></i>
+              <span class="title col no-padding">{{akun.name}}</span>
+              <span class="col no-padding text-right">{{akun.anggaran|rupiah}}</span>
+            </div>
+          </ion-item>
+          <ion-item class="item-accordion no-padding"
+                    ng-repeat="item in akun.items"
+                    ng-show="isGroupShown(akun)"
+                    ng-click="toggleSubGroup(item,akun.id)">
+            <div class="row">
+              <i class="icon" style="width: 10px"></i>
+              <i class="icon" style="width: 10px;" ng-class="isSubGroupShown(item) ? 'ion-android-arrow-dropdown' : 'ion-android-arrow-dropright'"></i>
+              <span class="title1 no-padding"><b>{{item[0]}}</b></span>
+              <span class="caption1 col no-padding"><b>{{item[1]}}</b></span>
+            </div>
+            <div class="row">
+              <span style="width: 20px"></span>
+              <span class="col caption1 no-padding">Anggaran</span>
+              <span class="col caption1 no-padding text-right">{{item[2]|rupiah}}</span>
+              <span class="col caption1 no-padding right-pad-10 text-right">{{(item[2]/akun.anggaran)*100|number:2}}%</span>
+            </div>
+            <div class="row">
+              <span style="width: 20px"></span>
+              <span class="col caption1 no-padding">Realisasi</span>
+              <span class="col caption1 no-padding text-right">{{item[3]|rupiah}}</span>
+              <span class="col caption1 no-padding right-pad-10 text-right">{{(item[3]/item[2])*100|number:2}}%</span>  
+            </div>
+            <div class="row">
+              <span style="width: 20px"></span>
+              <span class="col caption1 no-padding">Sisa</span>
+              <span class="col caption1 no-padding text-right">{{item[2]-item[3]|rupiah}}</span>
+              <span class="col caption1 no-padding right-pad-10 text-right">{{((item[2]-item[3])/item[2])*100|number:2}}%</span> 
+            </div>
+            <section class="border-top" ng-show="isSubGroupShown(item)">
+              <div class="row">
+                <span style="width: 20px"></span>
+                <span class="col caption2 no-padding"><b>ANGGARAN</b></span>
+              </div>
+              <div class="row" ng-repeat="detail in details">
+                <span style="width: 20px"></span>
+                <span class="col no-padding" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" ng-bind-html="detail[6]+detail[1]"></span>
+                <span class="col no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[2]|rupiah}}</span>
+              </div>
+              <div class="row">
+                <span style="width: 20px"></span>
+                <span class="col caption2 no-padding"><b>REALISASI</b></span>
+              </div>
+              <div class="row" ng-repeat="detail in details">
+                <span style="width: 20px"></span>
+                <span class="col no-padding" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" ng-bind-html="detail[6]+detail[1]"></span>
+                <span class="col no-padding text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[3]|rupiah}}</span>
+                <span class="col no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[4]|number:2}}%</span>
+              </div>
+            </section>
+          </ion-item>
+        </div>
+      </ion-list>
+  </ion-content>
+</ion-view>
