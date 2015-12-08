@@ -1,24 +1,23 @@
 <ion-view view-title="Settings">
+	<ion-nav-buttons side="right">
+      <a ng-if="edited" class="button button-clear" ng-click="saveSettings()"><span class translate>Save</span></a>
+    </ion-nav-buttons>
 	<ion-content>
 	<ion-list>
 		<ion-toggle ng-model="settings.enable">
 		Enable
 		</ion-toggle>
-		<label class="item item-input item-select">
+		<label class="item item-input">
 			<div class="input-label">
 				Tahun Periode
 			</div>
-			<select ng-model="settings.tahun">
-				<option value="2013">2013</option>
-				<option value="2014">2014</option>
-				<option value="2015">2015</option>
-			</select>
+			<input type="text" placeholder="YYYY" ng-model="settings.tahun" ng-change="change()">
 		</label>
 		<label class="item item-input">
 			<div class="input-label">
 				Server
 			</div>
-			<input type="text" placeholder="Server API Url" ng-model="settings.api_url">
+			<input type="text" placeholder="Server API Url" ng-model="settings.api_url" ng-change="change()">
 		</label>
 	</ion-list>
 	</ion-content>

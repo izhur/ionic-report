@@ -22,11 +22,11 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers', 'starter.
   });
   $rootScope.settings = {
     enable: true,
-    tahun: "2015",
+    tahun: angular.isDefined(localStorage.year)? localStorage.year:"2016",
     username: "admin",
     loading: false,
     //api_url: "http://bengkulu.mymac.net/index.php/rest"
-    api_url: "http://182.23.33.140/mr_keuangan/index.php/api"
+    api_url: angular.isDefined(localStorage.api)?localStorage.api:"http://182.23.33.140/mr_keuangan/index.php/api"
     //api_url: "http://mrbkl-izhur.rhcloud.com/index.php/rest"
   };
   $rootScope.$on('loading:show', function() {

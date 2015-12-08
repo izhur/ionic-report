@@ -22,6 +22,19 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope,$rootScope) {
+  $scope.edited = false;
+  $scope.change = function(){
+    $scope.edited = true;
+  }
+  $scope.saveSettings = function() {
+    if ($scope.settings.tahun!='') {
+      localStorage.year = $scope.settings.tahun;
+    }
+    if ($scope.settings.api_url!='') {
+      localStorage.api = $scope.settings.api_url;
+    }
+    $scope.edited = false;
+  }
 })
 
 .controller('LraCtrl', function($scope,$stateParams,$httpParamSerializer,
