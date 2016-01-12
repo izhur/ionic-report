@@ -4,7 +4,7 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="Anggaran">
+<ion-view view-title="APBD">
   <ion-content>
     <div class="padding">
       <b>KOTA BENGKULU</b><br/>
@@ -27,7 +27,7 @@
           <ion-item class="" ng-show="isGroupShown(akun)">
             <div class="row" ng-repeat="item in details.items">
               <span style="width: {{item[5]}}px;"></span>
-              <span class="col caption2 no-padding" ng-class="item[4]=='h'?'bold':''">{{item[1]}}</span>
+              <span class="col caption2 no-padding" ng-class="item[4]=='h'?'bold':''">{{item[1]}}&nbsp;</span>
               <span class="col caption2 no-padding text-right" ng-class="item[4]=='h'?'bold':''">{{item[2]|rupiah}}</span>
             </div>
             <div ng-if="item[4]==h">&nbsp;</div>

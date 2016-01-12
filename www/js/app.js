@@ -25,8 +25,8 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers', 'starter.
     tahun: angular.isDefined(localStorage.year)? localStorage.year:"2016",
     username: "admin",
     loading: false,
-    //api_url: "http://bengkulu.mymac.net/index.php/rest"
-    api_url: angular.isDefined(localStorage.api)?localStorage.api:"http://182.23.33.140/mr_keuangan/index.php/api"
+    api_url: "http://bengkulu.mymac.net/index.php/rest"
+    //api_url: angular.isDefined(localStorage.api)?localStorage.api:"http://182.23.33.140/mr_keuangan/index.php/api"
     //api_url: "http://mrbkl-izhur.rhcloud.com/index.php/rest"
   };
   $rootScope.$on('loading:show', function() {
@@ -104,6 +104,15 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers', 'starter.
       }
     }
   })
+  .state('tab.lap-lra2', {
+    url: '/dash/lra2',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/lap-lra2.html',
+        controller: 'Lra2Ctrl'
+      }
+    }
+  })
   .state('tab.lap-angg', {
     url: '/dash/angg',
     views: {
@@ -122,25 +131,15 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers', 'starter.
       }
     }
   })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+  .state('tab.lap-stat', {
+    url: '/dash/stat',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/lap-stat.html',
+        controller: 'StatCtrl'
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+    }
+  })
 
   .state('tab.account', {
     url: '/account',

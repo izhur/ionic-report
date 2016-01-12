@@ -2,25 +2,6 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
 .controller('AccountCtrl', function($scope,$rootScope) {
   $scope.edited = false;
   $scope.change = function(){
@@ -137,6 +118,68 @@ angular.module('starter.controllers', [])
     return $scope.shownSubGroup === subgroup;
   };
 })
+
+.controller('Lra2Ctrl', function($scope,$stateParams,$httpParamSerializer,
+  $cordovaToast,$ionicPopup,Application,Pendapatan,Belanja,Pembiayaan) {
+
+  $scope.accounts = [];
+  $scope.subgroup = [];
+  $scope.pen = [];
+  $scope.bel = [];
+  $scope.pem = [];
+
+  Application.getskpd().then(function(data){
+    $scope.accounts = data;
+  });
+
+  $scope.showDetail = function(detail) {
+    console.log(detail);
+    var alertPopup = $ionicPopup.alert({
+      title: 'Detail',
+      cssClass: 'wide',
+      template: '<div class="row"><span class="col">Kode</span><span class="col">'+detail[0]+'</span></div>'+
+        '<div class="row"><span class="col">Nama</span><span class="col">'+detail[1]+'</span></div>'+
+        '<div class="row"><span class="col">Anggaran</span><span class="col">'+detail[2].formatMoney()+'</span></div>'+
+        '<div class="row"><span class="col">Realisasi</span><span class="col">'+detail[3].formatMoney()+'</span></div>'+
+        '<div class="row"><span class="col">Persentase</span><span class="col">'+detail[4].formatMoney()+'%</span></div>'
+    });
+  };
+
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      console.log(group);
+      var params = {
+        tahun: $scope.settings.tahun,
+        skpd: group.kode.slice(0,7) 
+      };
+      $scope.pen = [];
+      $scope.bel = [];
+      $scope.pem = [];
+
+      
+        Pendapatan.pendapatandetail($httpParamSerializer(params)).then(function(data){
+          $scope.pen = data.items;
+          console.log($scope.pen);
+        });
+        Belanja.belanjadetail($httpParamSerializer(params)).then(function(data){
+          $scope.bel = data.items;
+          console.log($scope.bel);
+        });
+        Pembiayaan.pembiayaandetail($httpParamSerializer(params)).then(function(data){
+          $scope.pem = data.items;
+          console.log($scope.pem);
+        });
+      
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+})
+
 .controller('AnggCtrl', function($scope,$stateParams,$httpParamSerializer,
   $cordovaToast,Application,Laporan,Pembiayaan) {
 
@@ -156,9 +199,15 @@ angular.module('starter.controllers', [])
         kodeS: group.kode 
       };
       $scope.details = [];
-      Laporan.apbd3(params).then(function(data){
-        $scope.details = data;
-      });
+      if (group.kode!="_.__.____") {
+        Laporan.apbd3(params).then(function(data){
+          $scope.details = data;
+        });
+      } else {
+        Laporan.apbd1(params).then(function(data){
+          $scope.details = data;
+        });
+      }
       $scope.shownGroup = group;
     }
   };
@@ -178,8 +227,33 @@ angular.module('starter.controllers', [])
   };
 
   Laporan.apbd1p($httpParamSerializer(params)).then(function(data){
-    console.log(data);
+    //console.log(data);
     $scope.accounts = data;
+  });
+})
+
+.controller('StatCtrl', function($scope,$stateParams,$httpParamSerializer,
+  $cordovaToast,Application,Laporan) {
+
+  $scope.stat = [];
+  $scope.list = [
+    {kode:'apbd',nama:'APBD'},
+    {kode:'apbdp',nama:'APBDP'},
+    {kode:'1',nama:'Januari'},
+    {kode:'2',nama:'Februari'},
+    {kode:'3',nama:'Maret'},
+    {kode:'4',nama:'April'},
+    {kode:'5',nama:'Mei'},
+    {kode:'6',nama:'Juni'},
+    {kode:'7',nama:'Juli'},
+    {kode:'8',nama:'Agustus'},
+    {kode:'9',nama:'September'},
+    {kode:'10',nama:'Oktober'},
+    {kode:'11',nama:'November'},
+    {kode:'12',nama:'Desember'}
+  ];
+  Laporan.kelengkapan().then(function(data){
+    $scope.stat = data;
   });
 })
 ;

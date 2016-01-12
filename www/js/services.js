@@ -102,10 +102,25 @@ angular.module('starter.services', ['ngResource','ngCookies'])
       });
     },
     'getskpd': function() {
-      return this.request({
-        'method': "POST",
-        'url': "/getskpd"
-      });
+      var apiAuth = this;
+      var reqtime = Math.floor(Date.now());
+      //console.log(apiAuth.skpd_time,reqtime,(reqtime-apiAuth.skpd_time),180000);
+      if (angular.isDefined(apiAuth.skpd_time) && (reqtime-apiAuth.skpd_time)<180000) {
+        var deferred = $q.defer();
+        deferred.resolve(apiAuth.skpd);
+        return deferred.promise;
+      } else {
+        return this.request({
+          'method': "POST",
+          'url': "/getskpd"
+        }).then(function(data){
+          var item = {"kode":"_.__.____","nama":"* Seluruh Dinas / Wilayah *"};
+          data.splice(0,0,item);
+          apiAuth.skpd = data;
+          apiAuth.skpd_time = Math.floor(Date.now());
+          return data;
+        });
+      }
     }
   };
   return app;
@@ -283,13 +298,26 @@ angular.module('starter.services', ['ngResource','ngCookies'])
         'data': params
       });
     },
+    'apbd1': function(params) {
+      return Application.request({
+        'method': "GET",
+        'url': "/apbd1/",
+        'data': params
+      });
+    },
     'apbd1p': function(params) {
       return Application.request({
         'method': "POST",
         'url': "/apbd1_p/",
         'data': params
       });
-    }
+    },
+    'kelengkapan': function() {
+      return Application.request({
+        'method': "GET",
+        'url': "/kelengkapan/",
+      });
+    },
   };
   return lap;
 })

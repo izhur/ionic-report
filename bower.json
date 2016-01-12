@@ -11,6 +11,7 @@
     "ngCordova": "~0.1.23-alpha"
   },
   "resolutions": {
-    "angular": "1.4.8"
+    "angular": ">= 1.2.23",
+    "ionic": "1.1.1"
   }
 }

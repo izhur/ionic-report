@@ -56,3 +56,6 @@
 .width30 {
 	width: 30px;
 }
+.popup-container.wide .popup {
+	width: 400px;
+}

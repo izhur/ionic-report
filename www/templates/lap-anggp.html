@@ -4,7 +4,7 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="Anggaran">
+<ion-view view-title="APBD Perubahan">
   <ion-content>
     <div class="padding">
       <b>KOTA BENGKULU</b><br/>
@@ -13,14 +13,30 @@
     </div>
     <ion-list>
       <ion-item>
+        <div class="row">
+          <div style="width: 5px;"></div>
+          <div class="col caption2 no-padding">&nbsp;</div>
+          <div class="col caption2 no-padding text-center bold">
+            Sebelum
+          </div>
+          <div class="col caption2 no-padding text-center bold">
+            Setelah
+          </div>
+          <div class="caption2 text-center bold" style="width: 50px;">Perubahan(%)</div>
+        </div>
         <div class="row" ng-repeat="item in accounts.items">
-          <span style="width: {{item[6]}}px;"></span>
-          <span class="col caption2 no-padding" ng-class="item[6]==0?'bold':''">{{item[0]}} {{item[1]}}</span>
-          <span class="col caption2 no-padding text-right" ng-class="item[6]==0?'bold':''">{{item[2]|rupiah}}</span>
-          <span class="caption2 text-right" style="width: 50px;">{{item[5]|number:0}}%</span>
+          <div style="width: {{item[6]}}px;"></div>
+          <div class="col caption2 no-padding" ng-class="item[6]==0?'bold':''">{{item[0]}} {{item[1]}}</div>
+          <div class="col caption2 no-padding text-right" ng-class="item[6]==0?'bold':''">
+            {{item[2]|rupiah}}
+          </div>
+          <div class="col caption2 no-padding text-right" ng-class="item[6]==0?'bold':''">
+            {{item[3]|rupiah}}
+          </div>
+          <div class="caption2 text-right" style="width: 50px;">{{item[5]|number:0}}%</divs>
         </div>
         <div ng-if="item[4]==h">&nbsp;</div>
       </ion-item>
-      </ion-list>
+    </ion-list>
   </ion-content>
 </ion-view>

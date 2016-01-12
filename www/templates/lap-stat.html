@@ -1,0 +1,21 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Status">
+  <ion-content>
+    <div class="padding">
+      <b>KOTA BENGKULU</b><br/>
+      KELENGKAPAN DATA<br/>
+      <b>TAHUN ANGGARAN {{settings.tahun}}</b>
+    </div>
+    <ion-list>
+        <ion-item class="item-stable item-icon-right" ng-repeat="item in list">
+          {{item.nama}}
+          <i class="icon" ng-class="stat.kelengkapan[item.kode]=='Y' ? 'ion-checkmark-circled balanced' : 'ion-close-circled assertive'"></i>
+        </ion-item>
+      </ion-list>
+  </ion-content>
+</ion-view>

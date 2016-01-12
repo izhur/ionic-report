@@ -54,3 +54,16 @@ angular.module('starter.directives', [])
 	};
 })
 ;
+
+Number.prototype.formatMoney = function(n, x, s, c, sym) { 
+    n = n||2;
+    x = x||3;
+    s = s||'.';
+    c = c||',';
+    sym = sym||'Rp ';
+
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = this.toFixed(Math.max(0, ~~n));
+
+    return sym+(c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+};

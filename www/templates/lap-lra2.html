@@ -1,0 +1,84 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Realisasi Anggaran (2)">
+  <ion-content>
+    <div class="padding">
+      <b>KOTA BENGKULU</b><br/>
+      REALISASI ANGGARAN MENURUT URUSAN PEMERINTAHAN DAERAH, ORGANISASI,
+      PENDAPATAN, BELANJA DAN PEMBIAYAAN<br/>
+      <b>TAHUN ANGARAN {{settings.tahun}}</b>
+    </div>
+    <ion-list>
+        <div ng-repeat="akun in accounts">
+          <ion-item class="item-stable no-padding"
+                    ng-click="toggleGroup(akun)"
+                    ng-class="{active: isGroupShown(akun)}">
+            <div class="row">
+              <i class="icon" style="width: 10px" ng-class="isGroupShown(akun) ? 'ion-android-arrow-dropdown' : 'ion-android-arrow-dropright'"></i>
+              <span class="caption0 no-padding">{{akun.kode|limitTo:7}}</span>
+              <span style="width: 10px"></span>
+              <span class="col caption0 no-padding">{{akun.nama}}</span>
+            </div>
+          </ion-item>
+          <ion-item class="no-padding" ng-show="isGroupShown(akun)">
+            <section class="border-top">
+              <div class="row">
+                <span style="width: 10px"></span>
+                <span class="col caption2 no-padding"><b>PENDAPATAN</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Anggaran)</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Realisasi)</b></span>
+                <span class="caption2 no-padding text-center" style="width: 60px"><b>(%)</b></span>
+              </div>
+              <div class="row" ng-repeat="detail in pen">
+                <span style="width: 10px"></span>
+                <span class="col no-padding" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" ng-bind-html="detail[6]+detail[1]" ng-click="showDetail(detail)"></span>
+                <span class="col no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[2]|rupiah}}</span>
+                <span class="col no-padding text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[3]|rupiah}}</span>
+                <span class="no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" style="width: 60px">{{detail[4]|number:2}}%</span>
+              </div>
+              <div class="row">
+                <span style="width: 10px"></span>
+                <span class="col caption2 no-padding">&nbsp;</span>
+              </div>
+              <div class="row">
+                <span style="width: 10px"></span>
+                <span class="col caption2 no-padding"><b>BELANJA</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Anggaran)</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Realisasi)</b></span>
+                <span class="caption2 no-padding text-center" style="width: 60px"><b>(%)</b></span>
+              </div>
+              <div class="row" ng-repeat="detail in bel">
+                <span style="width: 10px"></span>
+                <span class="col no-padding" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" ng-bind-html="detail[6]+detail[1]" ng-click="showDetail(detail)"></span>
+                <span class="col no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[2]|rupiah}}</span>
+                <span class="col no-padding text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[3]|rupiah}}</span>
+                <span class="no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" style="width: 60px">{{detail[4]|number:2}}%</span>
+              </div>
+              <div class="row">
+                <span style="width: 10px"></span>
+                <span class="col caption2 no-padding">&nbsp;</span>
+              </div>
+              <div class="row">
+                <span style="width: 10px"></span>
+                <span class="col caption2 no-padding"><b>PEMBIAYAAN</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Anggaran)</b></span>
+                <span class="col caption2 no-padding text-center"><b>(Realisasi)</b></span>
+                <span class="caption2 no-padding text-center" style="width: 60px"><b>(%)</b></span>
+              </div>
+              <div class="row" ng-repeat="detail in pem">
+                <span style="width: 10px"></span>
+                <span class="col no-padding" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" ng-bind-html="detail[6]+detail[1]" ng-click="showDetail(detail)"></span>
+                <span class="col no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[2]|rupiah}}</span>
+                <span class="col no-padding text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'">{{detail[3]|rupiah}}</span>
+                <span class="no-padding right-pad-10 text-right" ng-class="(detail[5]<2)?'caption2 bold':'caption2'" style="width: 60px">{{detail[4]|number:2}}%</span>
+              </div>
+            </section>
+          </ion-item>
+        </div>
+      </ion-list>
+  </ion-content>
+</ion-view>
